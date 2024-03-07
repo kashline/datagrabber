@@ -1,0 +1,24 @@
+{
+  "name": "datagrabber",
+  "version": "1.0.0",
+  "description": "Gathers data from various sources, transforms it, caches it, and serves it for frontend consumption",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "finnhub": "^1.2.18",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "postgres": "^3.4.3",
+    "redis": "^4.6.13",
+    "redis-om": "^0.4.3",
+    "sanitize": "^2.1.2",
+    "sequelize": "^6.37.1",
+    "sqlite3": "^5.1.7"
+  }
+}
