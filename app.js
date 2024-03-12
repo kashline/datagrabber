@@ -5,13 +5,13 @@ import sanitize from 'sanitize';
 import SeedData from './SeedData.js';
 import NewRecipe from './NewRecipe.js';
 import Redis from './Redis.js';
-// import test from './test.js';
-import Recipe from './db/models/Recipe.js'
+import test from './test.js';
+import CreateRecipe from './CreateRecipe.js';
 
 Redis()
-const test = Recipe.build({name: "test", difficulty: 1, length: 1})
-console.log(test)
-// SeedData()
+// await test()
+SeedData()
+
 const app = express ();
 app.use(express.json(), sanitize.middleware);
 // app.use(require('sanitize').middleware)
@@ -54,6 +54,7 @@ app.get('/data/recipes', async (request, response) => {
 })
 
 app.post('/data/recipes/new', async (request, response) => {
-   await NewRecipe(request.body)
-   response.send(request.body)
+   // await NewRecipe(request.body)
+   const res = await CreateRecipe(request.body)
+   response.send(res)
 })
