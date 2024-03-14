@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 import sequelize from '../connection.js'
 import Ingredient from './Ingredient.js';
 import Recipe from './Recipe.js';
@@ -6,8 +6,13 @@ import Recipe from './Recipe.js';
 export default class RecipeIngredient extends Model {}
 
 RecipeIngredient.init({
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
   quantity: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false
   },
   recipe_id: {
@@ -29,5 +34,5 @@ RecipeIngredient.init({
   modelName: 'RecipeIngredient'
 });
 
-Recipe.belongsToMany(Ingredient, {through: "RecipeIngredients", foreignKey: "recipe_id"})
-Ingredient.belongsToMany(Recipe, {through: "RecipeIngredients", foreignKey: "ingredient_id"})
+Recipe.belongsToMany(Ingredient, {through: RecipeIngredient, foreignKey: "recipe_id"})
+Ingredient.belongsToMany(Recipe, {through: RecipeIngredient, foreignKey: "ingredient_id"})

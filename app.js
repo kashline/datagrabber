@@ -7,6 +7,7 @@ import NewRecipe from './NewRecipe.js';
 import Redis from './Redis.js';
 import test from './test.js';
 import CreateRecipe from './CreateRecipe.js';
+import GetRecipe from './GetRecipe.js';
 
 Redis()
 // await test()
@@ -47,7 +48,9 @@ app.get('/data/recipes', async (request, response) => {
    if(Object.keys(request.query).length === 0 && request.query.constructor === Object) {
       response.send(JSON.stringify("Use query parameters to get filtered recipes."))
    } else {
-      const res = await Fetchrecipes({...request.query})
+      // const res = await Fetchrecipes({...request.query})
+      // console.log(request.query.name)
+      const res = await GetRecipe(request.query.name)
       console.log(res)
       response.send(res)
    }

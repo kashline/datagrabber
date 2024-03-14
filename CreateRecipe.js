@@ -1,12 +1,13 @@
 import Recipe from './db/models/Recipe.js';
 import Ingredient from './db/models/Ingredient.js';
 import RecipeIngredient from './db/models/RecipeIngredient.js';
-import RecipeSteps from './db/models/RecipeSteps.js';
-import GetRecipe from './GetRecipe.js';
+import RecipeStep from './db/models/RecipeStep.js';
 
 async function CreateRecipe({...data}){
     try {
-        await syncAll()
+        await syncAll().catch((err) => {
+            console.log(err)
+        })
         const recipe = await createRecipe(data.name, data.difficulty, data.length)
         Object.keys(data.ingredients).map(async (key) => {
             const ingredient = await createIngredient(Object.keys(data.ingredients[key])[0])
@@ -15,7 +16,6 @@ async function CreateRecipe({...data}){
         Object.keys(data.steps).map(async (step_number) => {
             await createRecipeSteps(recipe[0].dataValues.id, step_number, data.steps[step_number])
         })
-        GetRecipe(data.name)
         return {
             status: 200,
             recipe: await Recipe.findAll({where: {name: data.name}})
@@ -53,7 +53,9 @@ async function createRecipe(name, difficulty, length){
 
 async function createIngredient(name){
     try {
-        await Ingredient.sync()
+        await Ingredient.sync().catch((err) => {
+            console.log(err)
+        })
         const res = await Ingredient.findOrCreate({
             where: {
                 name: name
@@ -68,7 +70,9 @@ async function createIngredient(name){
 
 async function createRecipeIngredient(recipe_id, ingredient_id, quantity){
     try {
-        await RecipeIngredient.sync()
+        await RecipeIngredient.sync().catch((err) => {
+            console.log(err)
+        })
         const res = await RecipeIngredient.findOrCreate({
             where: {
                 recipe_id: recipe_id,
@@ -94,8 +98,8 @@ async function createRecipeIngredient(recipe_id, ingredient_id, quantity){
 
 async function createRecipeSteps(recipe_id, step_number, step){
     try {
-        await RecipeSteps.sync()
-        const res = await RecipeSteps.findOrCreate({
+        await RecipeStep.sync()
+        const res = await RecipeStep.findOrCreate({
             where: {
                 recipe_id: recipe_id,
                 step_number: step_number,
@@ -125,7 +129,7 @@ async function syncAll(){
         await Recipe.sync()
         await Ingredient.sync()
         await RecipeIngredient.sync()
-        await RecipeSteps.sync()
+        await RecipeStep.sync()
         return true
     } catch (error) {
         console.log(error)

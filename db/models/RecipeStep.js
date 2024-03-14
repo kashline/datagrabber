@@ -1,11 +1,15 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../connection.js'
-import Ingredient from './Ingredient.js';
 import Recipe from './Recipe.js';
 
-export default class RecipeSteps extends Model {}
+export default class RecipeStep extends Model {}
 
-RecipeSteps.init({
+RecipeStep.init({
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
   step: {
     type: DataTypes.STRING,
     allowNull: false
@@ -22,7 +26,8 @@ RecipeSteps.init({
   }
 }, {
   sequelize,
-  modelName: 'RecipeSteps'
+  modelName: 'RecipeStep'
 });
 
-Recipe.hasMany(RecipeSteps)
+Recipe.hasMany(RecipeStep, {foreignKey: 'recipe_id'})
+RecipeStep.belongsTo(Recipe, {foreignKey: 'recipe_id'})
