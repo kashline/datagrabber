@@ -1,17 +1,20 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 import sequelize from '../connection.js'
 import Recipe from './Recipe.js';
 
+/**
+ * Model of a recipe's steps containing the step, step number, and associated recipe_id
+ */
 export default class RecipeStep extends Model {}
 
 RecipeStep.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-      },
+    // id: {
+    //     type: DataTypes.INTEGER,
+    //     autoIncrement: true,
+    //     primaryKey: true
+    //   },
   step: {
-    type: DataTypes.STRING,
+    type: Sequelize.TEXT,
     allowNull: false
   },
   recipe_id: {

@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
-export default new Sequelize({
+
+const sequelize = new Sequelize({
   username: 'postgres',
   host: 'localhost',
   database: 'kevinashline',
@@ -8,3 +9,5 @@ export default new Sequelize({
   dialect: 'postgres',
   logging: false
  })
+
+export default sequelize

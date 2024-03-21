@@ -1,17 +1,15 @@
 import express from 'express';
 import FetchStocks from './FetchStocks.js'
-import Fetchrecipes from './FetchRecipes.js';
 import sanitize from 'sanitize';
-import SeedData from './SeedData.js';
-import NewRecipe from './NewRecipe.js';
 import Redis from './Redis.js';
-import test from './test.js';
-import CreateRecipe from './CreateRecipe.js';
+import {CreateRecipe} from './api/CreateRecipe.js';
 import GetRecipe from './GetRecipe.js';
+import RunAllDaemons from './daemons/RunAllDaemons.js';
+import RunAllSeeds from './db/seeds/RunAllSeeds.js';
 
 Redis()
-// await test()
-SeedData()
+RunAllSeeds()
+RunAllDaemons()
 
 const app = express ();
 app.use(express.json(), sanitize.middleware);

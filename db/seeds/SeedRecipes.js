@@ -1,4 +1,5 @@
-import CreateRecipe from "./CreateRecipe.js"
+import {CreateRecipe} from "../../api/CreateRecipe.js"
+import sequelize from "../connection.js";
 
 const data = [
     {
@@ -127,15 +128,11 @@ const data = [
     },
 ]
 
-function SeedData(){
-    try {
-        for (let i = 0; i < data.length; i++) {
-            CreateRecipe(data[i])
-        }
-    } catch (error) {
-        console.error(error, recipe)
+async function SeedRecipes(){
+    await sequelize.sync()
+    for (let i = 0; i < data.length; i++) {
+        CreateRecipe(data[i])
     }
-    return true
 }
 
-export default SeedData;
+export default SeedRecipes;
