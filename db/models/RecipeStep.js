@@ -8,11 +8,11 @@ import Recipe from './Recipe.js';
 export default class RecipeStep extends Model {}
 
 RecipeStep.init({
-    // id: {
-    //     type: DataTypes.INTEGER,
-    //     autoIncrement: true,
-    //     primaryKey: true
-    //   },
+  id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
   step: {
     type: Sequelize.TEXT,
     allowNull: false
